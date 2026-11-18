@@ -1,0 +1,5 @@
+# Copy this file to config.txt (same folder as where you run the program)
+# and replace the values. config.txt is ignored by Git - never commit it.
+API_KEY=your-api-key-here
+API_URL=https://your-ai-provider.example.com/v1/chat/completions
+MODEL=your-model-name

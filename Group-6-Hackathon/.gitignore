@@ -1,0 +1,29 @@
+# Secrets - NEVER commit the real API key
+config.txt
+
+# AI reply log (generated at runtime)
+ai_log.txt
+
+# Compiled Java files
+*.class
+
+# NetBeans / Ant build output
+build/
+dist/
+nbproject/private/
+
+# Maven / Gradle output (if used)
+target/
+.gradle/
+
+# IntelliJ / Eclipse / VS Code
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

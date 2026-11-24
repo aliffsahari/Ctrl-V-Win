@@ -1,0 +1,29 @@
+FOLDER: src/manager/
+OWNER:  Aliff
+
+WHAT IT DOES
+Keeps the objects in memory using plain arrays.
+
+CLASSES
+- AccountManager      (Account[] and an int counter)
+- TransactionManager  (Transaction[] and an int counter)
+
+WHAT THEY DO
+- Add, search by ID, delete (by shifting later elements left), count, and
+  fetch by index, all with loops.
+- Generate new IDs (for example M0001, T00001).
+- Work out totals such as totalSpent() and totalReceived().
+- Provide clear() so FileManager can reload data cleanly.
+
+WHAT THEY DO NOT DO
+- No ArrayList, LinkedList or HashMap (the assignment forbids them).
+- No file reading or writing.
+- No printing to the user.
+
+TALKS TO
+model (the arrays hold model objects).
+
+REMINDERS
+- Check the return value of addAccount() and addTransaction(): they return
+  false when the array is full or the ID is a duplicate.
+- Every array has its own separate int counter.

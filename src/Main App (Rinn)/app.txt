@@ -1,0 +1,26 @@
+FOLDER: src/app/
+OWNER:  Rinn
+
+WHAT IT DOES
+Starts the program. This is where main() lives.
+
+CLASSES
+- Main
+
+WHAT THEY DO
+- Load saved data at startup (FileManager.loadAll).
+- Show the login menu and send each user to the right menu:
+  student, merchant or admin.
+- Save all data when the user exits.
+
+WHAT THEY DO NOT DO
+- No business rules (those are in model).
+- No file reading or writing code (that is in storage).
+- No long menu code (that is in ui). Main only decides which menu to open.
+
+TALKS TO
+ui, manager, storage, model
+
+REMINDERS
+- Run the program from the project root so it finds data/ and config.txt.
+- Catch AIServiceException wherever the AI is used and show a fallback message.

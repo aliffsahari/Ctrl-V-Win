@@ -1,0 +1,37 @@
+FOLDER: src/model/
+OWNER:  Asmizi
+
+WHAT IT DOES
+Represents the things the program is about (accounts and transactions)
+and the rules for them.
+
+CLASSES
+- Account          (abstract parent class)
+- StudentAccount   (extends Account: daily limit, student fees)
+- MerchantAccount  (extends Account: receiving fee, refunds)
+- Admin            (admin login details)
+- Transaction      (one top-up, payment, transfer or refund record)
+
+WHAT THEY DO
+- Hold the data: ID, name, PIN, balance, frozen flag, amount, date, status.
+- Enforce the rules: daily limit, fees, frozen accounts, insufficient funds.
+- Show polymorphism: pay(), calculateFee() and toFileString() behave
+  differently in each account type.
+- Turn each object into one line of text with toFileString().
+
+WHAT THEY DO NOT DO
+- No lists of objects (the managers do that).
+- No file reading or writing (storage does that).
+- No Scanner input or menus (ui does that).
+
+TALKS TO
+exception only (model methods throw custom exceptions).
+
+REMINDERS
+- Fields are private, with public getters.
+- Use @Override on every overriding method.
+- Use Locale.US when formatting numbers in toFileString() so the decimal
+  point is always a dot.
+- Keep Account and its subclasses in the same package, because Account has
+  protected methods (deduct, credit) that the subclasses use.
+- The field order in toFileString() must match the parser in FileManager.

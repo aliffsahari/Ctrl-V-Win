@@ -1,0 +1,34 @@
+FOLDER: src/ai/
+OWNER:  Nabila
+
+WHAT IT DOES
+The AI feature and everything around it.
+
+CLASSES
+- AIHelper         (the only class that talks to the AI service)
+- AILogger         (appends every shown AI reply to ai_log.txt)
+- SpendingAdvisor  (builds the prompt and returns the AI's advice)
+
+WHAT THEY DO
+- AIHelper: String ask(String prompt) sends the request with
+  HttpURLConnection. The JSON is built and parsed by hand with indexOf and
+  substring (no external libraries). It reads API_KEY, API_URL and MODEL
+  from config.txt and throws AIServiceException when AI is unavailable.
+- AILogger: writes the prompt and reply, with a timestamp, to ai_log.txt.
+- SpendingAdvisor: takes an account and its transactions, builds a prompt,
+  calls AIHelper, logs the reply and returns it.
+
+WHAT THEY DO NOT DO
+- Never crash the program when AI fails. The caller catches the exception
+  and shows a fallback message.
+- Never contain the real API key.
+
+TALKS TO
+model (to read accounts and transactions) and exception (AIServiceException).
+
+REMINDERS
+- Every AI request must go through AIHelper.ask().
+- Check your provider's documentation for the exact URL, headers and reply
+  format, then adjust buildRequestJson() and extractReply().
+- Add a short "educational only, not financial advice" line to the output.
+- config.txt is in .gitignore. Share config.txt.example instead.

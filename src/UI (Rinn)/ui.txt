@@ -1,0 +1,33 @@
+FOLDER: src/ui/
+OWNER:  Rinn
+
+WHAT IT DOES
+Everything the user sees and types.
+
+CLASSES
+- StudentMenu     (balance, top-up, pay, transfer, history, explain spending)
+- MerchantMenu    (balance, received payments, sales summary, refund)
+- AdminMenu       (list, create, freeze, unfreeze, delete accounts; reports)
+- InputValidator  (safe reading of numbers and text)
+
+WHAT THEY DO
+- Show text menus with Scanner, one for each user role.
+- InputValidator keeps asking until the input is valid, so a typo never
+  crashes the program. Examples: readInt, readDouble, readNonEmpty,
+  readYesNo, readPin, readMatricNumber.
+- Catch the custom exceptions and print a clear message.
+
+WHAT THEY DO NOT DO
+- No business rules (those are in model).
+- No direct file reading or writing (that is in storage).
+
+TALKS TO
+model, manager, ai, storage (for reports) and exception.
+
+REMINDERS
+- InputValidator should be a final class with a private constructor and
+  public static methods.
+- Reject names that contain the | character, because it is the file delimiter.
+- Use stubs for the other folders until the real classes are ready.
+- Test with bad input: letters instead of numbers, empty lines, negative
+  amounts, and no internet for the AI option.

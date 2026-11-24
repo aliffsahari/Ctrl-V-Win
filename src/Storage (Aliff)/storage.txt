@@ -1,0 +1,34 @@
+FOLDER: src/storage/
+OWNER:  Aliff
+
+WHAT IT DOES
+Everything that reads or writes .txt files for saved data and reports.
+
+CLASSES
+- FileManager      (save and load the data files)
+- ReportGenerator  (account statements and the admin report)
+
+WHAT THEY DO
+- FileManager.saveAll(): writes every account and transaction to data/*.txt
+  (through a temporary file, so a crash cannot leave a half-written file).
+- FileManager.loadAll(): rebuilds the objects when the program restarts.
+  Missing files are created, and bad lines are skipped with a message.
+- ReportGenerator: writes reports/statement_<id>.txt for one account and
+  reports/admin_report.txt for the whole system.
+
+FILE FORMATS (fields separated by |, one record per line, no header)
+  accounts: STUDENT|id|name|pin|balance|frozen|dailyLimit
+            MERCHANT|id|name|pin|balance|frozen|businessName
+  transactions: id|type|senderId|receiverId|amount|fee|dateTime|status
+
+WHAT THEY DO NOT DO
+- No business rules and no menus.
+
+TALKS TO
+manager and model.
+
+REMINDERS
+- Names must not contain the | character (InputValidator should reject it).
+- Commit only clean sample data with fake values, never real PINs or
+  matric numbers.
+- Document the final file formats in the README.

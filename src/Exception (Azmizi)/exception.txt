@@ -1,0 +1,30 @@
+FOLDER: src/exception/
+OWNER:  Asmizi (AIServiceException: Nabila)
+
+WHAT IT DOES
+Holds the custom exceptions, so every kind of error has a clear name.
+
+CLASSES
+- InsufficientFundsException    (balance too low)
+- DailyLimitExceededException   (daily spending limit reached)
+- AccountFrozenException        (account is frozen)
+- AIServiceException            (AI cannot be used right now)
+
+WHAT THEY DO
+- Each class extends Exception and has a constructor that takes a message.
+- The model classes throw the money-related ones.
+- AIHelper throws AIServiceException when the key or internet is missing,
+  the service returns an error, or the reply cannot be read.
+  This one is mandatory for every project.
+- The menus catch them and print a clear message instead of crashing.
+
+WHAT THEY DO NOT DO
+- No logic. The message is the useful part.
+
+TALKS TO
+Nobody. Other folders import these classes.
+
+REMINDERS
+- They are checked exceptions, so any method that throws one needs "throws"
+  in its signature, and the caller must catch it.
+- Test the AI fallback three ways: no config.txt, a wrong key, no internet.

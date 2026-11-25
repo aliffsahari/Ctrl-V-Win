@@ -1,22 +1,24 @@
-# Group-6-Hackathon
+# Ctrl+V+Win
 
-FOP Hackathon 2026 / WIX1002 Group Project: a Java console application with an AI feature.
+FOP Hackathon 2026 / WIX1002 Group Project (Group 6, OCC 2): a Java console application with an AI feature.
 
-> Replace the placeholders below (marked with `TODO`) once your team has chosen a topic.
+> Items marked `TODO` are still to be filled in by the team.
 
 ## Project summary
-- **Project name:** TODO
-- **Track:** TODO
-- **UN SDG(s):** TODO (and a sentence on how the app addresses it)
-- **AI feature:** TODO (what the AI does for the user)
+- **Project:** Student E-Wallet (working title)
+- **Track:** Campus Life & Student Services
+- **UN SDGs:**
+  - **SDG 8 (Decent Work and Economic Growth):** gives students and campus merchants a simple, low-cost cashless way to pay and get paid. Small campus businesses (cafes, food stalls) can accept payments without card terminals, and every account gets a clear transaction history and statement.
+  - **SDG 4 (Quality Education):** the "Explain my spending" AI feature helps students understand where their money goes and build better budgeting habits, which supports financial literacy.
+- **AI feature:** "Explain my spending". The AI reads a student's transaction history and gives a plain-language summary with saving tips. If the AI is unavailable, the app shows a fallback message and everything else keeps working.
 
 ## Team
-| Name | Student ID | GitHub username | Main responsibility |
-|---|---|---|---|
-| TODO | TODO | TODO | AI integration (`AIHelper`, config, logging) |
-| TODO | TODO | TODO | Backend: model classes and business rules |
-| TODO | TODO | TODO | Backend: arrays, managers, file I/O, reports |
-| TODO | TODO | TODO | Menus, input validation, testing |
+| Name | GitHub | Role |
+|---|---|---|
+| Muhamad Aliff bin Mohd Sahari | aliffsahari | Data & Storage Developer |
+| Nik Mohamad Azmizi bin Mohamad Mran | nikazmizi | Core Logic Developer |
+| Noor Nabila binti Saniman | 26006219-bit | AI Integration Developer |
+| Orin Nuraiya Nawar | n-orin | Interface & Quality Developer |
 
 ## Requirements
 - Java JDK 17 or newer (check with `java -version`)
@@ -26,8 +28,8 @@ FOP Hackathon 2026 / WIX1002 Group Project: a Java console application with an A
 ## Setup for the evaluator
 1. Clone the repository:
    ```
-   git clone https://github.com/aliffsahari/Group-6-Hackathon.git
-   cd Group-6-Hackathon
+   git clone https://github.com/aliffsahari/Ctrl-V-Win.git
+   cd Ctrl-V-Win
    ```
 2. Create your config file from the template:
    ```
@@ -38,30 +40,69 @@ FOP Hackathon 2026 / WIX1002 Group Project: a Java console application with an A
    If the key or internet is missing, the AI feature shows a fallback message and the rest of the program keeps working.
 
 ## How to compile and run
-From the project root:
+Run everything from the project root so the program finds `config.txt` and the `data/` folder.
 
 ```
 javac -d out src/*.java
 java -cp out Main
 ```
 
+(TODO: update these commands if the team moves the classes into packages.)
+
 Or open the project in NetBeans (or another IDE), set `Main` as the main class and press Run.
-Run the program from the project root so it finds `config.txt` and the data files.
+
+## Sample logins (fake data)
+The `data/` folder comes with sample accounts so you can try the program straight away. All names, IDs and PINs are made up.
+
+| ID | PIN | Role |
+|---|---|---|
+| 25000001 | 1234 | Student |
+| 25000002 | 2345 | Student |
+| 25000003 | 3456 | Student (frozen account) |
+| M0001 | 4321 | Merchant |
+| M0002 | 5432 | Merchant |
+
+TODO: add the admin login once it is decided.
 
 ## Data files
-All data is saved to `.txt` files in the working directory and reloaded on startup.
+All data is saved to `.txt` files and reloaded when the program restarts. Fields are separated by `|`, one record per line, with no header row. Lines that are empty or start with `#` are ignored.
 
 | File | Purpose | Format |
 |---|---|---|
+| `data/accounts.txt` | All accounts | `STUDENT\|id\|name\|pin\|balance\|frozen\|dailyLimit` or `MERCHANT\|id\|name\|pin\|balance\|frozen\|businessName` |
+| `data/transactions.txt` | Every top-up, payment, transfer and refund | `id\|type\|senderId\|receiverId\|amount\|fee\|dateTime\|status` |
+| `reports/statement_<id>.txt` | Statement for one account (generated) | Formatted text report |
+| `reports/admin_report.txt` | Overview for the admin (generated) | Formatted text report |
+| `ai_log.txt` | Every AI reply shown to a user (generated, not in Git) | `[timestamp] PROMPT / REPLY` lines |
 | `config.txt` | API settings (not in Git) | `KEY=value`, one per line |
-| `ai_log.txt` | Every AI reply shown to a user (generated) | `[timestamp] reply text` |
-| TODO | TODO | TODO (document each field and the delimiter) |
+
+Example account line: `STUDENT|25000001|Aisyah Rahman|1234|107.50|false|500.00`
+Example transaction line: `T00001|TOPUP|25000001|25000001|100.00|0.00|2026-12-01 09:00|SUCCESS`
 
 ## Features
-- TODO: list the main features per user role (e.g. Student, Merchant, Admin)
+- **Student:** view balance, top up, pay a merchant, transfer to another student, view history, export a statement, explain my spending (AI)
+- **Merchant:** view balance, view received payments, sales summary, refund
+- **Admin:** list, create, freeze, unfreeze and delete accounts, generate the admin report
+
+TODO: confirm the final feature list.
+
+## Project structure
+```
+src/        Java source files
+data/       Saved .txt data files (sample data included)
+reports/    Generated statements and admin report
+```
+See `PROJECT_STRUCTURE.md` for what each part of the code does.
 
 ## Class overview
-TODO: list the classes and one line on each. Mention the abstract class and its subclasses.
+- **Model:** `Account` (abstract), `StudentAccount`, `MerchantAccount`, `Admin`, `Transaction`
+- **Exceptions:** `InsufficientFundsException`, `DailyLimitExceededException`, `AccountFrozenException`, `AIServiceException`
+- **Managers (plain arrays):** `AccountManager`, `TransactionManager`
+- **Storage:** `FileManager`, `ReportGenerator`
+- **AI:** `AIHelper`, `AILogger`, `SpendingAdvisor`
+- **Interface:** `Main`, `StudentMenu`, `MerchantMenu`, `AdminMenu`, `InputValidator`
+
+`Account` is the abstract parent class. `StudentAccount` and `MerchantAccount` override `pay()`, `calculateFee()` and `toFileString()` to behave differently.
 
 ## Known limitations
 - TODO
@@ -69,3 +110,4 @@ TODO: list the classes and one line on each. Mention the abstract class and its 
 ## Notes
 - Collections such as `ArrayList` and `HashMap` are not used for storing objects. Plain arrays with a separate counter are used instead.
 - Do not commit `config.txt`. It contains the real API key.
+- Passwords and PINs are stored as plain text because this is a class project. A real system would hash them.

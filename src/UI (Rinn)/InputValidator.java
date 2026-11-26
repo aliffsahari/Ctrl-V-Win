@@ -6,7 +6,7 @@ import java.util.Scanner;
  * crashes the program. All methods are static, for example:
  * InputValidator.readInt(sc, "Choose: ", 0, 5)
  *
- * Owner: Rinn (Interface & Quality Developer), Group 6.
+ * Owner: Rinn (Interface and Quality Developer), Group 6.
  */
 public final class InputValidator {
 

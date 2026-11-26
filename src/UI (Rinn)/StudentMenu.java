@@ -7,7 +7,7 @@ import java.util.Scanner;
  * transfer to another student, history, AI spending advice and a statement.
  * Every action catches the custom exceptions and prints a clear message.
  *
- * Owner: Rinn (Interface & Quality Developer), Group 6.
+ * Owner: Rinn (Interface and Quality Developer), Group 6.
  */
 public class StudentMenu {
 
@@ -180,6 +180,11 @@ public class StudentMenu {
             System.out.println("\n" + reply);
         } catch (AIServiceException e) {
             System.out.println("The AI is not available right now: " + e.getMessage());
+            System.out.println("Everything else in the e-wallet still works.");
+        } catch (RuntimeException e) {
+            // for example a wrong API_URL in config.txt (ftp:// instead of https://) makes the AI code fail
+            // with an unexpected error; the e-wallet must keep running, so show the same fallback message
+            System.out.println("The AI is not available right now: unexpected " + e.getClass().getSimpleName() + ".");
             System.out.println("Everything else in the e-wallet still works.");
         }
     }

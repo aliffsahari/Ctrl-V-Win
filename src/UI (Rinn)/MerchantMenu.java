@@ -6,7 +6,7 @@ import java.util.Scanner;
  * The menu a merchant sees after logging in: balance, payments received,
  * a sales summary and refunds.
  *
- * Owner: Rinn (Interface & Quality Developer), Group 6.
+ * Owner: Rinn (Interface and Quality Developer), Group 6.
  */
 public class MerchantMenu {
 

@@ -4,7 +4,7 @@ import java.util.Scanner;
  * The admin menu: list, create, freeze, unfreeze and delete accounts,
  * and save the admin report.
  *
- * Owner: Rinn (Interface & Quality Developer), Group 6.
+ * Owner: Rinn (Interface and Quality Developer), Group 6.
  */
 public class AdminMenu {
 

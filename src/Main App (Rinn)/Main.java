@@ -5,7 +5,7 @@ import java.util.Scanner;
  * Entry point of the student e-wallet. Loads the saved data, shows the
  * login menu, opens the right menu for each user, and saves everything on exit.
  *
- * Owner: Rinn (Interface & Quality Developer), Group 6.
+ * Owner: Rinn (Interface and Quality Developer), Group 6.
  */
 public class Main {
 
@@ -15,6 +15,10 @@ public class Main {
 
     /** Wrong PINs allowed before going back to the main menu. */
     private static final int MAX_PIN_TRIES = 3;
+
+    /** No objects are made from this class: it only holds the static main method and its helpers. */
+    private Main() {
+    }
 
     /**
      * Loads the data, runs the login loop until the user exits, then saves.

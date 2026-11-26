@@ -114,8 +114,11 @@ public class TransactionManager {
     }
 
     /**
-     * Total money the account has paid out: amount plus fee of every
-     * successful PAYMENT or TRANSFER where it is the sender.
+     * Total money the account has paid out as the sender of successful
+     * transactions:
+     *   PAYMENT  - the amount only. The fee on a payment is the merchant's
+     *              receiving fee, so it is not counted as the student's spending.
+     *   TRANSFER - the amount plus the fee (the sender pays the transfer fee).
      * @param accountId the sender account ID
      * @return the total spent
      */
@@ -125,10 +128,12 @@ public class TransactionManager {
             Transaction t = transactions[i];
             if (accountId != null
                     && accountId.equalsIgnoreCase(t.getSenderId())
-                    && "SUCCESS".equalsIgnoreCase(t.getStatus())
-                    && (t.getType().equalsIgnoreCase("PAYMENT")
-                        || t.getType().equalsIgnoreCase("TRANSFER"))) {
-                total += t.getAmount() + t.getFee();
+                    && "SUCCESS".equalsIgnoreCase(t.getStatus())) {
+                if (t.getType().equalsIgnoreCase("PAYMENT")) {
+                    total += t.getAmount();
+                } else if (t.getType().equalsIgnoreCase("TRANSFER")) {
+                    total += t.getAmount() + t.getFee();
+                }
             }
         }
         return total;

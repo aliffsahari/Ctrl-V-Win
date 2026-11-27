@@ -46,6 +46,11 @@ public class AIHelper {
         if (apiUrl == null || apiUrl.isEmpty() || model == null || model.isEmpty()) {
             throw new AIServiceException("API_URL or MODEL missing in " + CONFIG_FILE + ".");
         }
+        if (!apiUrl.startsWith("https://")) {
+            throw new AIServiceException(
+                "Invalid API URL. HTTPS is required."
+            );
+        }
 
         HttpURLConnection conn = null;
         try {

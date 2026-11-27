@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.mycompany.insufficientfundexception;
+
 
 /**
  * Represents a merchant e-wallet account that receives customer payments and issues refunds.

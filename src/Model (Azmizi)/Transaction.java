@@ -1,8 +1,9 @@
-package com.mycompany.insufficientfundexception;
+
 
 /**
  * Represents a single financial transaction record (top-up, payment, transfer, or refund).
  */
+import java.util.Locale;
 public class Transaction {
 
     private String transactionId;
@@ -107,10 +108,9 @@ public class Transaction {
      * @return pipe-delimited transaction record
      */
     public String toFileString() {
-        return transactionId + "|" + type + "|" + senderId + "|" + receiverId + "|"
-                + amount + "|" + fee + "|" + dateTime + "|" + status;
+        return String.format(Locale.US, "%s|%s|%s|%s|%.2f|%.2f|%s|%s",
+                transactionId, type, senderId, receiverId, amount, fee, dateTime, status);
     }
-
     /**
      * Returns a formatted summary of the transaction for console display.
      * @return formatted transaction string

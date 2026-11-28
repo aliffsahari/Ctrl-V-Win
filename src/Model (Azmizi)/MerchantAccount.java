@@ -1,5 +1,4 @@
-
-
+import java.util.Locale;
 
 /**
  * Represents a merchant e-wallet account that receives customer payments and issues refunds.

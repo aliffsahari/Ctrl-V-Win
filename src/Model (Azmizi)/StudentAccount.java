@@ -1,24 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
+import java.time.LocalDate;
+import java.util.Locale;
 
 /**
- *
- * @author user
+ * Represents a student e-wallet account with a daily spending limit and peer-to-peer transfer support.
  */
-import java.time.LocalDate; 
-
 public class StudentAccount extends Account {
-    
+
     private double dailyLimit;
     private double spentToday;
     private String lastSpendDate;
-    
+
     public static final double DEFAULT_DAILY_LIMIT = 500.00;
     public static final double TRANSFER_FEE = 0.50;
-    
+
     /**
      * Constructs a StudentAccount with the specified details and daily spending limit.
      *
@@ -29,25 +23,37 @@ public class StudentAccount extends Account {
      * @param frozen     account freeze status
      * @param dailyLimit maximum daily spending limit in RM
      */
-    public StudentAccount(String id, String name, String pin, double balance, boolean frozen, double dailyLimit){
+    public StudentAccount(String id, String name, String pin, double balance, boolean frozen, double dailyLimit) {
         super(id, name, pin, balance, frozen);
         this.dailyLimit = (dailyLimit > 0) ? roundMoney(dailyLimit) : DEFAULT_DAILY_LIMIT;
         this.spentToday = 0.0;
         this.lastSpendDate = LocalDate.now().toString();
     }
-    
-    //mothod getter
+
     /**
      * Returns the daily spending limit.
+     *
      * @return daily limit in RM
      */
     public double getDailyLimit() {
         return dailyLimit;
     }
-    public double getSpentToday(){
+
+    /**
+     * Returns the amount spent today, resetting if a new calendar day has begun.
+     *
+     * @return amount spent today in RM
+     */
+    public double getSpentToday() {
         resetDailyIfNewDay();
         return spentToday;
     }
+
+    /**
+     * Returns the remaining daily spending limit for today.
+     *
+     * @return remaining daily limit in RM
+     */
     public double getRemainingLimit() {
         resetDailyIfNewDay();
         return roundMoney(dailyLimit - spentToday);
@@ -104,7 +110,7 @@ public class StudentAccount extends Account {
 
         if (roundMoney(spentToday + amount) > dailyLimit) {
             throw new DailyLimitExceededException(
-                String.format("Daily limit of RM %.2f exceeded. Remaining limit: RM %.2f",
+                String.format(Locale.US, "Daily limit of RM %.2f exceeded. Remaining limit: RM %.2f",
                     dailyLimit, getRemainingLimit())
             );
         }
@@ -148,7 +154,7 @@ public class StudentAccount extends Account {
         double totalDebit = roundMoney(amount + TRANSFER_FEE);
         if (roundMoney(spentToday + totalDebit) > dailyLimit) {
             throw new DailyLimitExceededException(
-                String.format("Daily limit of RM %.2f exceeded (including RM %.2f fee). Remaining: RM %.2f",
+                String.format(Locale.US, "Daily limit of RM %.2f exceeded (including RM %.2f fee). Remaining: RM %.2f",
                     dailyLimit, TRANSFER_FEE, getRemainingLimit())
             );
         }
@@ -160,6 +166,7 @@ public class StudentAccount extends Account {
 
     /**
      * Returns the account type identifier.
+     *
      * @return "STUDENT"
      */
     @Override
@@ -169,12 +176,12 @@ public class StudentAccount extends Account {
 
     /**
      * Formats this student account as a pipe-delimited string for accounts.txt.
+     *
      * @return formatted student account line
      */
     @Override
     public String toFileString() {
-        return String.format("STUDENT|%s|%s|%s|%.2f|%b|%.2f",
+        return String.format(Locale.US, "STUDENT|%s|%s|%s|%.2f|%b|%.2f",
                 getAccountId(), getName(), getPin(), getBalance(), isFrozen(), dailyLimit);
     }
 }
-

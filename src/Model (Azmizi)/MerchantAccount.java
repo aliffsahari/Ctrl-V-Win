@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 
 
@@ -108,7 +104,7 @@ public class MerchantAccount extends Account {
      */
     @Override
     public String toFileString() {
-        return String.format("MERCHANT|%s|%s|%s|%.2f|%b|%s",
+        return String.format(Locale.US, "MERCHANT|%s|%s|%s|%.2f|%b|%s",
                 getAccountId(), getName(), getPin(), getBalance(), isFrozen(), businessName);
     }
 }
